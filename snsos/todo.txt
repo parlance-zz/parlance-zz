@@ -1,0 +1,8 @@
+- Mem_Alloc, Mem_Free, Mem_AllocEx, Heap stuff
+- Setup interrupts.
+- Enumerate PCI, PCI-Express, ACPI, PnP. 
+- Load storage devices, setup virtual memory.
+- Load NIC devices. 
+- Setup multi-tasking / multi-processors. 
+- File system. 
+- Service system. 

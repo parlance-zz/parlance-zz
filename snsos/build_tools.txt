@@ -1,0 +1,10 @@
+Build Tools:
+
+- mingw64   (64bit g++, 64bit objcopy)
+- nasm      (x86/64 assembler with raw output support, used for boot loader / mbr)
+- visual studio 2008 (various tools)
+
+Optional:
+
+- qemu      (command line invokable x86 emulator with x64 support, NE2000 NICs, etc.)
+- disasm    (64 bit disassembler for kernel bug tracking)
