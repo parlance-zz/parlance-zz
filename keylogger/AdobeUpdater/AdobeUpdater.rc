@@ -1,0 +1,100 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON1               ICON                    "AdobeUpdater.ico"
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+1 VERSIONINFO
+FILEVERSION 5,0,1,1116
+PRODUCTVERSION 5,0,1,1116
+FILEOS 0x4
+FILETYPE 0x1
+BEGIN
+BLOCK "StringFileInfo"
+BEGIN
+	BLOCK "040904e4"
+	BEGIN
+		VALUE "CompanyName", "Adobe Systems Incorporated"
+		VALUE "FileDescription", "Adobe Updater"
+		VALUE "FileVersion", "5, 0, 1, 1116"
+		VALUE "InternalName", "AdobeUpdater.exe"
+		VALUE "LegalCopyright", "Copyright (c) 2002-2007 by Adobe Systems Incorporated.  All rights reserved."
+		VALUE "OriginalFilename", "AdobeUpdater.exe"
+		VALUE "ProductName", "Adobe Updater"
+		VALUE "ProductVersion", "5.0.1.1116 (BuildVersion: 45.247312; BuildDate: Mon Jul 15 2008 12:44:12)"
+		VALUE "BuildDate", "Mon Jul 15 2008 12:44:12"
+		VALUE "BuildVersion", "45.247312"
+	END
+END
+
+BLOCK "VarFileInfo"
+BEGIN
+	VALUE "Translation", 0x0409 0x04E4
+END
+END
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

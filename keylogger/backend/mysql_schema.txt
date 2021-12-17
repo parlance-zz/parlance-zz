@@ -1,0 +1,6 @@
+ACCOUNT adobeupdater (xxxxxxxxx)
+DATABASE adobeupdater
+TABLE data
+FIELD computer (varchar)
+FIELD data (longtext)
+FIELD time (datetime)
