@@ -1,0 +1,143 @@
+sampler2D TexSource			: TEXTURE0;	// Source texture for most filtering
+sampler2D TexNormalDepth	: TEXTURE1;	// Used for cross bilateral filtering
+
+float2 SampleOffsets2x2[4];
+float2 SampleOffsets4x4[4];
+
+float	CbSampleWeights[5]	= {1.0f, 4.0f, 10.0f, 4.0f, 1.0f};
+float2	CbSampleOffset;
+float	CbDepthScaling = 0.1f;
+
+struct Vertex
+{
+	float4 position : POSITION;
+	float2 texCoord : TEXCOORD0;
+};
+
+Vertex vpMain(in Vertex vertex)
+{
+	return vertex;
+}
+
+float4 fpTap(in float2 iTexCoord : TEXCOORD0) : COLOR
+{
+	return tex2D(TexSource, iTexCoord);
+}
+
+float4 fpTap2x2(in float2 texCoord : TEXCOORD0) : COLOR
+{
+	float4 sample = 0.0f;
+
+	for (int i = 0; i < SampleOffsets2x2.length; i++)
+	{
+		sample += tex2D(TexSource, texCoord + SampleOffsets2x2[i]);
+	}
+
+	float iLength = 1.0f / SampleOffsets2x2.length;
+
+	return sample * iLength;
+}
+
+float4 fpTap4x4(in float2 texCoord : TEXCOORD0) : COLOR
+{
+	float4 sample = 0.0f;
+
+	for (int i = 0; i < SampleOffsets4x4.length; i++)
+	{
+		sample += tex2D(TexSource, texCoord + SampleOffsets4x4[i]);
+	}
+
+	float iLength = 1.0f / SampleOffsets4x4.length;
+
+	return sample * iLength;
+}
+
+float4 fpTapNormal2x2(in float2 texCoord : TEXCOORD0) : COLOR
+{
+	float4 sample = 0.0f;
+
+	for (int i = 0; i < SampleOffsets2x2.length; i++)
+	{
+		sample += tex2D(TexSource, texCoord + SampleOffsets2x2[i]);
+	}
+
+	return float4(normalize(sample.xyz), sample.w / SampleOffsets2x2.length);
+}
+
+float4 fpTapNormal4x4(in float2 texCoord : TEXCOORD0) : COLOR
+{
+	float4 sample = 0.0f;
+
+	for (int i = 0; i < SampleOffsets4x4.length; i++)
+	{
+		sample += tex2D(TexSource, texCoord + SampleOffsets4x4[i]);
+	}
+
+	return float4(normalize(sample.xyz), sample.w / SampleOffsets4x4.length);
+}
+
+float4 fpCrossBilateral(in Vertex IN) : COLOR
+{
+	float4 fragSample = tex2D(TexNormalDepth, IN.texCoord);
+	float3 fragNormal = fragSample.xyz;
+	float  fragDepth  = fragSample.w;
+
+	float4 result = 0.0f;
+	float  weight = 0.0f;
+
+	for (int i = 0; i < CbSampleWeights.length; i++)
+	{
+		float2 texCoord			= IN.texCoord + CbSampleOffset * (float(i) - (CbSampleWeights.length - 1.0f) * 0.5f);
+
+		float4 sampleData		= tex2D(TexNormalDepth, texCoord);
+		float sampleDepth		= sampleData.w;
+		float depthDifference	= (fragDepth - sampleDepth) / CbDepthScaling;
+		float sampleWeight		= CbSampleWeights[i] * exp(-(depthDifference * depthDifference)) * clamp(dot(fragNormal, sampleData.xyz), 0.01f, 1.0f);
+
+		result += tex2D(TexSource, texCoord) * sampleWeight;
+		weight += sampleWeight;
+	}
+
+	float iWeight = 1.0f / weight;
+
+	return result.rgba * iWeight;
+}
+
+technique RenderLatest
+{
+	pass Tap
+	{
+		VertexProgram	= compile latest vpMain();
+		FragmentProgram = compile latest fpTap();
+	}
+
+	pass Tap2x2
+	{
+		VertexProgram	= compile latest vpMain();
+		FragmentProgram = compile latest fpTap2x2();
+	}
+
+	pass Tap4x4
+	{
+		VertexProgram	= compile latest vpMain();
+		FragmentProgram = compile latest fpTap4x4();
+	}
+
+	pass TapNormal2x2
+	{
+		VertexProgram	= compile latest vpMain();
+		FragmentProgram = compile latest fpTapNormal2x2();
+	}
+
+	pass TapNormal4x4
+	{
+		VertexProgram	= compile latest vpMain();
+		FragmentProgram = compile latest fpTapNormal4x4();
+	}
+
+	pass CrossBilateral
+	{
+		VertexProgram	= compile latest vpMain();
+		FragmentProgram = compile latest fpCrossBilateral();
+	}
+}

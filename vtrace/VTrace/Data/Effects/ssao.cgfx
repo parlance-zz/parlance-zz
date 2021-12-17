@@ -1,0 +1,106 @@
+const float3 SphereSamples[14] = 
+{
+	float3(-0.57735027f,-0.57735027f,-0.57735027f),
+	float3(-0.57735027f,-0.57735027f, 0.57735027f),
+	float3(-0.57735027f, 0.57735027f,-0.57735027f),
+	float3(-0.57735027f, 0.57735027f, 0.57735027f),
+	float3( 0.57735027f,-0.57735027f,-0.57735027f),
+	float3( 0.57735027f,-0.57735027f, 0.57735027f),
+	float3( 0.57735027f, 0.57735027f,-0.57735027f),
+	float3( 0.57735027f, 0.57735027f, 0.57735027f),
+
+	float3(-1.0f, 0.0f, 0.0f),
+	float3( 1.0f, 0.0f, 0.0f),
+	float3( 0.0f,-1.0f, 0.0f),
+	float3( 0.0f, 1.0f, 0.0f),
+	float3( 0.0f, 0.0f,-1.0f),
+	float3( 0.0f, 0.0f, 1.0f),
+};
+
+const float2 NoiseScale;
+const float  DepthScaling;
+const float  Radius			= 0.15f;
+const float  InvSamples		= 1.5f / SphereSamples.length;
+
+float2 FrustumExtents;
+
+sampler2D TexNoiseNormals	: TEXTURE0;
+
+sampler2D TexNormalDepth4  = sampler_state
+{
+    MagFilter = LINEAR;
+    MinFilter = LINEAR;
+    MipFilter = POINT;
+};
+
+struct App2Vert
+{
+	float4 position : POSITION;
+	float2 texCoord	: TEXCOORD0;
+};
+
+struct Vert2Frag
+{
+	float4 position  : POSITION;
+	float2 texCoord	 : TEXCOORD0;
+	float3 cameraPos : TEXCOORD1;
+};
+
+void vpMain(in	App2Vert  IN,
+			out Vert2Frag OUT)
+{
+	OUT.position  = IN.position;
+	OUT.texCoord  = IN.texCoord;
+
+	OUT.cameraPos = float3((IN.texCoord * 2.0f - 1.0f) * FrustumExtents, 1.0f);
+}
+
+float4 fpMain(in Vert2Frag IN) : COLOR0
+{
+	float4 fragmentSample	= tex2D(TexNormalDepth4, IN.texCoord);
+	float  fragmentDepth	= fragmentSample.w;
+	float3 fragmentPosition = IN.cameraPos * fragmentDepth;
+	float3 fragmentNormal	= fragmentSample.xyz;
+
+	float3 noiseNormal		= normalize(tex2D(TexNoiseNormals, IN.texCoord * NoiseScale).xyz * 2.0f - 1.0f);
+
+	float occlusion = 0.0f;
+
+	for (int i = 0; i < SphereSamples.length; i++)
+	{
+		float3 ray = reflect(SphereSamples[i], noiseNormal) * Radius;
+		ray *= sign(dot(ray, fragmentNormal));
+
+		float3 raySample = fragmentPosition + ray; 
+		float2 rayCoord  = ((raySample.xy / (FrustumExtents * raySample.z)) + 1.0f) * 0.5f;
+
+		float4 occluderSample = tex2D(TexNormalDepth4, rayCoord);
+		float3 occluderNormal = occluderSample.xyz;
+		float occluderDepth   = occluderSample.w;
+ 
+		float depthDifference = max(raySample.z - occluderDepth, 0.0f);
+		depthDifference /= (DepthScaling * 0.5f + depthDifference);
+
+		occlusion += depthDifference;
+	}
+
+	return clamp(1.0f - occlusion * InvSamples, 0.0f, 1.0f);
+}
+
+technique RenderNv40 
+{
+	pass SSAO
+	{
+		VertexProgram	= compile vp40 vpMain();
+		FragmentProgram = compile fp40 fpMain();
+	}
+}
+
+technique RenderDx9c
+{
+	pass SSAO
+	{
+		VertexProgram	= compile vs_3_0 vpMain();
+		FragmentProgram = compile ps_3_0 fpMain();
+	}
+}

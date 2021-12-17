@@ -1,0 +1,190 @@
+interface Light
+{
+	float3 GetContribution(float3 position, float3 normal, float3 eyeVec, float specPower);
+};
+
+struct PointLight : Light
+{
+	float3 position;
+	float3 diffuse;
+	float3 specular;
+
+	float3 GetContribution(float3 fragPos, float3 normal, float3 eyeVec, float specPower)
+	{
+		float3 lightVec	= normalize(position - fragPos);
+		float3 halfVec	= normalize(lightVec + eyeVec);
+		
+		return diffuse * max(dot(lightVec, normal), 0.0f) + specular * pow(max(dot(halfVec, normal), 0.0f), specPower);
+	}
+};
+
+struct DirectionalLight : Light
+{
+	float3 direction;
+	float3 diffuse;
+	float3 specular;
+
+	float3 GetContribution(float3 fragPos, float3 normal, float3 eyeVec, float specPower)
+	{
+		float3 halfVec	= normalize(direction + eyeVec);
+		
+		return diffuse * max(dot(direction,normal), 0.0f) + specular * pow(max(dot(halfVec,normal), 0.0f), specPower);
+	}
+};
+
+Light		Lights[];		
+float2		FrustumExtents;	
+
+sampler2D	TexNormalDepth		: TEXTURE0;	// xyz is surface normal in [-1,1], w is view space depth
+sampler2D	TexAlbedo			: TEXTURE1; // rgb is albedo color in [0,1]
+
+float2  TexelSize;					        // Size of one texel in the source texture
+float2  TexelSize4 = float2(0.0f , 0.0f);	// Size of a texel in quarter-size buffers
+
+texture TexNormalDepth4;		// xyz is surface normal in [-1,1], w is view space depth
+texture TexAmbientOcclusion4;	// r is occlusion factor in [0,1]
+
+const float2 SampleOffsets4[9] =
+{ 
+	float2(-1.0f,-1.0f), float2(0.0f,-1.0f), float2(1.0f,-1.0f),
+	float2(-1.0f, 0.0f), float2(0.0f, 0.0f), float2(1.0f, 0.0f),
+	float2(-1.0f, 1.0f), float2(0.0f, 1.0f), float2(1.0f, 1.0f)
+}; //-0.5,-0.5), float2( 0.5,-0.5), float2(-0.5, 0.5), float2( 0.5, 0.5) };
+
+sampler2D texNormalDepth4 = sampler_state 
+{
+    Texture = <TexNormalDepth4>; 
+	MagFilter = LINEAR;
+    MinFilter = LINEAR;
+    MipFilter = POINT;
+	AddressU = CLAMP;
+	AddressV = CLAMP;
+};
+
+sampler2D texAmbientOcclusion4 = sampler_state 
+{
+    Texture = <TexAmbientOcclusion4>; 
+	MagFilter = LINEAR;
+    MinFilter = LINEAR;
+    MipFilter = POINT;
+	AddressU = CLAMP;
+	AddressV = CLAMP;
+};
+
+struct App2Vert
+{
+	float4 position : POSITION;
+	float2 texCoord	: TEXCOORD0;
+};
+
+struct Vert2Frag
+{
+	float4 position  : POSITION;
+	float2 texCoord	 : TEXCOORD0;
+	float3 cameraPos : TEXCOORD1;
+};
+
+void vpMain(in	App2Vert  IN,
+			out Vert2Frag OUT)
+{
+	OUT.position  = IN.position;
+	OUT.texCoord  = IN.texCoord;
+
+	OUT.cameraPos = float3((IN.texCoord * 2.0f - 1.0f) * FrustumExtents, 1.0f);
+}
+
+bool EnableAlbedoTexture;
+bool EnableAmbientOcclusion;
+bool EnableDirectLighting;
+bool EnableAmbientFiltering;
+
+float4 fpMain(in float2 texCoord  : TEXCOORD0,
+			  in float3 cameraPos : TEXCOORD1) : COLOR
+{
+	float4 sampleND		=  tex2D(TexNormalDepth, texCoord) * 0.6f + 
+		                   tex2D(TexNormalDepth, (texCoord + float2(TexelSize.x, 0.0f))) * 0.2f + 
+						   tex2D(TexNormalDepth, (texCoord + float2(0.0f, TexelSize.y))) * 0.2f;
+
+	float3 position		= cameraPos * sampleND.w;
+	float3 normal		= normalize(sampleND.xyz);
+	float3 eyeVec		= normalize(-position);
+
+	float4 albedoSpec	= tex2D(TexAlbedo, texCoord);
+	float3 albedo		= albedoSpec.rgb;
+	float  specPower	= 16.0f; //albedoSpec.a * 256;
+	
+	float3 color = 1.0f;
+
+	// TODO: Figure out why Cg explodes when this is inside the conditional block
+	float ambient = 0.0f;
+	float weight = 0.0f;
+
+	float2 baseCoord = floor(texCoord / TexelSize4);
+
+	for (int i = 0; i < SampleOffsets4.length; i++)
+	{
+		float2 coord = (baseCoord + SampleOffsets4[i]) * TexelSize4;
+
+		float4 sampleND4		= tex2D(texNormalDepth4, coord);
+		float3 samplePosition	= float3((coord * 2.0f - 1.0f) * FrustumExtents, 1.0f) * sampleND4.w;
+		float3 sampleNormal		= normalize(sampleND4.xyz);
+		float3 delta			= (samplePosition - position) * (1.0f / 0.05f);
+		float sampleWeight		= clamp(exp(-dot(delta, delta)) * dot(normal, sampleNormal), 0.01f, 1.0f);
+
+		ambient += tex2D(texAmbientOcclusion4, coord).r * sampleWeight;
+		weight += sampleWeight;
+	}
+
+	float iWeight = 1.0f / weight;
+
+	if (EnableAmbientOcclusion)
+	{
+		if(EnableAmbientFiltering)
+		{
+			color = ambient * iWeight;
+		}
+		else
+		{
+			color = tex2D(texAmbientOcclusion4, texCoord).r;
+		}
+	}
+
+	if (EnableDirectLighting)
+	{
+		float3 light = 0.0f;
+
+		for (int i = 0.0f; i < Lights.length; i++)
+		{	
+			light += Lights[i].GetContribution(position, normal, eyeVec, specPower);
+		}
+
+		color *= light;
+
+		// TODO: Shadowed lights should bypass the ambient occlusion and add directly
+		// to color. These lights have already had their occlusion considered.
+	}
+	
+	if (EnableAlbedoTexture) color *= albedo;
+
+	if (length(albedo) == 0.0f) color = float4(0.75f, 0.5f, 0.2f, 1.0f);
+
+	return float4(color, 1.0f);
+}
+
+technique Render_nv40 
+{
+	pass Light
+	{
+		VertexProgram	= compile vp40 vpMain();
+		FragmentProgram = compile fp40 fpMain();
+	}
+}
+
+technique Render_dx9c 
+{
+	pass Light
+	{
+		VertexProgram	= compile vs_3_0 vpMain();
+		FragmentProgram = compile ps_3_0 fpMain();
+	}
+}

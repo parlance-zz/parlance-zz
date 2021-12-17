@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Intel C++ Project"
+	Version="11.0"
+	Name="ObjToVTS"
+	ProjectGUID="{F9459659-19EE-4013-B95D-7DF955A005D9}"
+	VCNestedProjectGUID="{545A353A-E651-41B9-AB57-113EB94900E3}"
+	VCNestedProjectFileName="ObjToVTS.vcproj">
+	<Configurations>
+		<Configuration
+			Name="Release|Win32">
+			<Tool
+				Name="CppCmplrTool"
+				Optimization="1000"
+				GlobalOptimizations="true"
+				OptimizeForWindowsApplication="true"
+				UseProcessorExtensions="5"
+				Parallelization="false"/>
+		</Configuration>
+	</Configurations>
+	<Files/>
+</VisualStudioProject>

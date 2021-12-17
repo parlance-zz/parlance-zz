@@ -1,0 +1,91 @@
+float InverseProjectA;				// 1.0f / A coefficient from the projection matrix
+float ProjectB;						// B coefficient from the projection matrix
+float2 FrustumExtents;
+float2 TexelSize;
+
+sampler2D TexDepth  : TEXTURE0;
+sampler2D TexAlbedo : TEXTURE1;	
+
+float InterpretTextureDepth(float sample) // Translate projection space depth to view space depth
+{
+	return (sample - ProjectB) * InverseProjectA;
+}
+
+float3 FormPosition(float2 texCoord, float depth)
+{
+	return float3((texCoord * 2.0f - 1.0f) * FrustumExtents, 1.0f) * depth;
+}
+
+float3 SamplePosition(float2 texCoord)
+{
+	return FormPosition(texCoord, InterpretTextureDepth(tex2D(TexDepth, texCoord).x));	
+}
+
+struct Vertex
+{
+	float4 position : POSITION;
+	float2 texCoord : TEXCOORD0;
+};
+
+Vertex vpMain(in Vertex vertex)
+{
+	return vertex;
+}
+
+struct SSNOut
+{
+	float4 normalsPos     : COLOR0;
+};
+
+SSNOut fpMain(in float2 texCoord : TEXCOORD0) : SSNOut
+{
+	float3 pos	= FormPosition(texCoord, InterpretTextureDepth(tex2D(TexDepth, texCoord).x));
+
+	float3 neighbors[4];
+
+	neighbors[0] = SamplePosition(texCoord + float2(TexelSize.x, 0.0f));
+	neighbors[1] = SamplePosition(texCoord - float2(TexelSize.x, 0.0f));
+	neighbors[2] = SamplePosition(texCoord + float2(0.0f, TexelSize.y));
+	neighbors[3] = SamplePosition(texCoord - float2(0.0f, TexelSize.y));
+
+	const float smoothFactor = 10000000.005f;
+
+	neighbors[0].z = max(pos.z / neighbors[0].z, neighbors[0].z / pos.z) < smoothFactor ? neighbors[0].z : pos.z;
+	neighbors[1].z = max(pos.z / neighbors[1].z, neighbors[1].z / pos.z) < smoothFactor ? neighbors[1].z : pos.z;
+	neighbors[2].z = max(pos.z / neighbors[2].z, neighbors[2].z / pos.z) < smoothFactor ? neighbors[2].z : pos.z;
+	neighbors[3].z = max(pos.z / neighbors[3].z, neighbors[3].z / pos.z) < smoothFactor ? neighbors[3].z : pos.z;
+	
+	float3 normals[4];
+	
+	normals[0] = -normalize(cross(pos - neighbors[0], pos - neighbors[2]));
+	normals[1] =  normalize(cross(pos - neighbors[2], neighbors[1] - pos));
+	normals[2] = -normalize(cross(neighbors[1] - pos, neighbors[3] - pos));
+	normals[3] =  normalize(cross(neighbors[3] - pos, pos - neighbors[0]));
+
+	float3 normal = normalize(normals[0] + normals[1] + normals[2] + normals[3]);
+
+	pos.z  = min(100.0f, pos.z); // todo: temporary fix for SSAO on pixels that border the void
+
+	SSNOut ssnOut;
+	ssnOut.normalsPos = float4(normal, pos.z);
+
+	return ssnOut;
+}
+
+technique Render_nv40 
+{
+	pass NormalDepth
+	{
+		VertexProgram	= compile vp40 vpMain();
+		FragmentProgram = compile fp40 fpMain();
+	}
+}
+
+technique Render_dx9c 
+{
+	pass NormalDepth
+	{
+		VertexProgram	= compile vs_3_0 vpMain();
+		FragmentProgram = compile ps_3_0 fpMain();
+	}
+}
