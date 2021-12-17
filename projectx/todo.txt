@@ -1,0 +1,86 @@
+
+
+********************************************************************************
+
+1) CMeshEntity needs fix for numloopingframes in animations.
+
+2) CWeaponResource needs to load a weapon resource
+
+3) CWeaponEntity needs to create weapon entities
+
+4) CPlayerEntity needs to correctly set animations and rotations for various body parts based
+   on input state from a derived class (CLocalPlayer, etc.)
+   
+5) CPlayerEntity needs to render the weapon correctly from first person.
+
+************************************************************************************
+
+-32) each resource needs a list rather than a vector, all additions to resource lists should push_front
+     and set the list index to the beginning of the list
+     
+-18) environment mapping screwiness needs to be fixed.
+
+-20) first of all, shaders don't need to consider the move type as a type of deformation, they should be held
+	 in a seperate list. secondly, cshaderresource::renderDeformedSurface(XSURFACE *surface) needs writing,
+	 which will apply deformations needed to the dynamic surface specified, and encode them into the push
+	 buffer.
+	 
+	 in cxengine::rendersurface before rendering geometry and doing all the shit that is listed after this,
+	 check if the surface has a shader, if it does, check for movement. if it does, request the movement
+	 matrix and if the surface has transform, multiply it with the matrix in the surface and set it as 
+	 the world matrix. do the same checks after to disable the world matrix.
+	 
+	 in cxengine::rendersurface before rendering geometry, check if the target surface is null, if it isn't,
+	 process the vertices and copy into the pushbuffer manually, else if the surface is dynamic _anyway_,
+	 check if it has a shader and if so let it render the deformed surface. if it is dynamic and doesn't
+	 have a shader, render it with drawindexedprimitivesup. if none of those things are true, render
+	 the static surface.
+
+-14) each tcMod doesn't need it's own matrix, they use a temp one in the update function.
+     saves a little memory.
+
+-10) bsp entities need to be actually processed from bsp file. my current idea is that the bspresource::create
+     function can break apart each entity into a list of 'properties', which consist of a property string and
+     a field string. that list would be searched for the classname, and from there the appropriate entity class
+     would need to be instantiated with the aforementioned list as its parameter. the entity create code would
+     take care of it from there for each entity derived class. a good system needs to be worked out for selecting
+     the object type to instantiate based on the classname string without a giant switch that needs to be updated
+     each time a new entity type is added.
+     
+-5) caching needs to be optimized, specifically the reserve function as well as texture caching. caching should
+    be able to happen asynchronously, which would really help reduce load times at this point. if I write
+    a comparison operator for ccacheresource types then I could use the stl sort of the vector and avoid
+    copying and using quicksort.
+    
+-2) timing stuttering needs to be fixed.
+
+-1) skybox needs fixing for adjusted curvature without zbuffer problems. also needs correct texture coordinates.
+ 
+ 1) billboards, particles, gui entites, sprites.
+ 
+1) stop surfaces from merging across bsp 'model' boundries. this will ensure movers work correctly in the future
+   when their entities are parsed.
+    
+2) import spherical collision detection from dokka as temp collision code.
+    
+3) get better text rendering in. text and GUI entities are going to be rendered AFTER everything.
+   another surface queue for these.
+    
+4) add camera post-process phase to rendering, use for fades / whatever.
+
+3) collision detection will be done in each entity's physical update. they will call a function of the
+   cbspresource passing themselves as parameters and the rest will get done from there. need to figure out
+   what I want to do for collision groups though.
+   
+1) physical entity needs collision / physics data, also need to figure out what I'm doing for collision
+	against curved surfaces. right now I'm thinking I'll just force level designers to brush them in.
+
+4) dynamic lighting! this includes not only setting up render states for vertex lighting of mesh surfaces
+   / md3s, but also special blended bsp lighting. to do this I'm not sure if I want to save the faces lump,
+   and then work from there, or use the actual surfaces to trim the re-rendered geometry for each light.
+   decals are going to do the same kind of trimming as lighting, but only once instead of per frame.
+   
+7) At index buffer build time, we're going to find and use the xbox vertex cache optimization code, wherever
+    the hell it is, and decide whether or not it is favorable to use a trilist or tristrip (as I assume will
+    usually be the case) for each surface. seeing as how the primitive type is specified in each drawindexedprimitives
+    call I don't anticipate a performance a hit.

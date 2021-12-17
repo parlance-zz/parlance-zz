@@ -1,0 +1,170 @@
+entity.cpp // the base entity class from which all entities are derived from. includes methods getEntityType()
+           // which will when overridden return a unique integer ID for that type of entity. Tracks the current
+           // number of references which this entity has. When the entity voluntarily self-destructs the reference
+           // count is only decremented by one and it is removed from regular tracking lists and added to the 'dead'
+           // entity list, at this point it might be forcibly cleared from memory or when the reference count goes down to
+           // 0. In addition to grabbing information queries on other entities or resources from the engine's helper functions,
+           // important events are also relayed to the engine by the engine's helper functions, including area changes, or things
+           // like game speed changes, reverb settings, etc. Rather than process these events immediately, it makes more sense
+           // to queue them and process them at the beginning of the next frame. Each entity derived class will contain
+           // a  static integer member representing the entity type ID. In the global code of each derived entity class
+           // where that static integer member is initialized, a game helper function called RegisterType() will be called
+           // in which the entity type name and parent type name will be supplied, and the entity ID will be returned.
+           // this member is what the method getEntityType() returns.
+
+**** world.cpp // extends entity. Is an instance of the bsp resource. provides the methods for traversing the bsp,
+               // finding nodes, rendering the bsp, tracing collision shapes through the bsp, getting ambient light
+               // info back from the BSP, and providing entity information from the BSP. Tracked directly by XEngine.
+               
+* resource.cpp // provides base resource functionality. supplies getResource() method as well as tracking the resource
+               // identifier, resource type (int ID), the parent resource this resource resides in, and the number of
+               // references to that resource, although, currently the reference counter will not be used to destroy it.
+			   // A list of resources is stored in XEngine.
+                                
+*** bsp_resource.cpp // extends resource. provides loading and compilation methods for BSPs. may include a lot of data structures
+                 // i havn't specifically thought of yet to handle the BSP efficiently internally.
+                 
+** shader_resource.cpp // extends resource. provides loading and compilation methods for shader files. tracks a render state,
+                       // sampler state, vertex/pixel shaders and their constants and parameters, and any special shader properties.
+                       // exposes a set of parameters (like transforms, vertex streams, opacity) for surfaces to bind to.
+
+** surface.cpp // a specific instance of a shader resource bound to a vertex buffer and possibly an index buffer. Includes all
+            // the parameter information needed to be supplied to the shader that is is bound to. Not an entity or resource,
+            // used internally by the engine and other resource/entity types. Supplies methods for rendering the surface, etc.
+            
+*** md3.cpp // extends resource. provides loading and compilation information for md3 models. Information recorded includes all the vertex
+        // buffers and index buffers associated with the different md3 parts. All the bones and animation information, and generated bounding
+        // info. Contains a number of different surfaces for each different animation.
+                    
+**** mesh.cpp // extends physical entity. is an instance of the md3 resource in the game world, provides transform information for all the bones
+         // as well as current animation, frame, and playing speed info. Provides methods for binding to specific body parts
+         // from md3 tags for individual articulation. provides rendering methods.
+         
+*** font_resource.cpp // extends resource. provides loading and compilation methods for bitmap font files. Tracks any other information
+                  // about them I can't think of right now.
+                           
+** texture_resource.cpp // extends resource. provides loading and compilation methods for texture resources from a variety of
+                     // file format. should at least support png, jpg, and dds. Texture types supported will include
+                     // 2D (of irregular dimensions, possibly), 3D, cubemaps, or animated 2D. Stores all relevant information
+                     // to that particular texture object.
+                     
+sound_resource.cpp // extends resource. provides loading and compilation methods for wav sound files which are stored in memory
+                   // as long as the resource is. tracks sound length information and looping information.
+                   
+sound_effect.cpp // extends entity. represents an instance of a currently playing sound effect. Includes mechanisms for handling
+                 // it's loopingness, volume, pan, speed, velocity, etc. A list of these is tracked internally by the engine.
+                 // sound effects are linkable to entities, otherwise, these will be destroyed immediately after finishing
+                 // playing.
+                 
+music_resource.cpp // extends resource. doesn't do a whole lot since music isn't really loaded into memory, just provides
+                   // information for music_entities to bind to.
+                   
+music_entity.cpp // an instance of a music resource. tracks volume, velocity, speed, pan, loop points. when created it is
+                 // bound to the corresponding music_resource which provides the location of a wma file to read from.
+                 // a thread is then created to stream that file. music entities can be paused which freezes the thread,
+                 // and also stopped, which actually terminates the thread and closes the file. an easy cross-fading or fade-out
+                 // mechanism here would be nice. a list of these is also tracked by the engine.
+                 
+physical_entity.cpp // extends entity. Supplies transform, physics, collision and culling information.
+                    // physics information includes mass, velocity, acceleration. transform information includes
+                    // position and rotation information, and a matrix describing the overall transform.
+                    // collision information includes the bounding type, from sphere, ray, or AABB, and the dimensions
+                    // of that type (which include a 'new' dimensions set, indicating the dimensions at the beginning
+                    // of the next frame, if they are different) as well as what collision groups that entity belongs to.
+                    // also keeps track of the cluster(s) this entity currently occupies in the BSP. provides a Collided()
+                    // method for handling collision events. There will be different movements types, but the only few I
+                    // I can think of now is linear slide, walking linear slide, teleport, and linear non-slide.
+                    
+path_node_entity.cpp // extends physicalentity. since these are created at BSP load time, that is when they will be linked to their
+                     // fellow nodes as well. provides AI hint information about paths like (sniper spot, end of path, etc.)
+                     // these are tracked in a seperate list by the engine.
+              
+light_entity.cpp // extends physicalentity. Provides light radius and color information, as well as whether or not this
+                 // light is to cast shadows, or if it is active or not. Tracked in a seperate list in the engine.
+                                        
+camera.cpp // extends physicalentity. provides viewport, frustum and projection information the physicalentity matrix should
+           // indicate the total transform. Keeps track of what cluster(s) this camera can currently see. supplies methods
+           // for updating the visible clusters and testing if bounding infos are within the frustum. cameras can be inactive
+           // or just 'hidden'. An inactivate camera will not update any visible cluster information or render anything.
+           // a 'hidden' camera will still update its frustum and visible clusters, but don't draw anything. Useful for
+           // entity desired visibility tests for AI.
+           
+particle_system.cpp // extends physicalentity. Tracks all the particles that belong to this particle system and is responsible
+                    // for updating them. Particles do not get an entity class to describe them, rather, the particle structure
+                    // is represented as a struct local to the particular particle system.           
+
+gui_entity.cpp // extends entity. provides 2 dimensional transform and positional information. contains a surface depicting
+               // a 2D geometry to be drawn with a certain shader and parameters after everything else is drawn.
+               
+gui_text.cpp // extends guientity, provides text drawing information as well as the font with which it is to be drawn, size,
+             // effect, etc.
+                            
+xengine.cpp // responsible for executing the main game loop. handles input, audio, and graphics, and entity updating.
+           // provides helper functions to game entities to find other entities, bind to resources, find entity types,
+           // etc. Contains several lists of entities: 1st, the bsp entity, of which there is just the one. A list is kept
+           // for all camera entities, then a list of all physical entities (possibly sublisted or sorted based on collision
+           // group information). Then, a list of all gui entities, and finally a list of just all entities. The engine
+           // will handle collision and all physics updates and relay the collision events back to the appropriate entities.
+           // and basically everything else written here in the bottom. Should have a method called isTypeA(int type, int baseType) to check
+           // if a certain type is derived from a base type.
+
+*******
+
+
+  
+  *******
+
+  Audio will support doppler/reverb.
+  Audio resources are tracked and managed in the same way graphics resources are, except that certain audio
+  resources are not stored in memory as they are in use, like WMAs which could be used for music or large
+  audio segments like voice, instead they are streamed to conserve memory.
+  The audio manager will be responsible for ensuring too many sounds don't get played at once, etc.
+  DirectMusic I figure will probably be the main avenue for playing sound effects.
+  As far as music goes, the music mixer will be the only other thread(s) running. The engine will
+  be capable of playing at most 2 and at least 0 WMAs simultaneously, and cross-fading between the two
+  or into silence, etc. Pretty straightforward stuff.
+  During this phase the queued sounds are played, any other music events (like pitch shifts or fades) are handled
+  here as well. The audio is the last thing processed in a frame, after the scene is presented, and then the loop
+  begins anew.
+
+  *******
+
+  Maybe I will consider support for WMV playback in the future if it becomes nessecary.
+
+  ***************************************************************************
+  
+  
+  CPlayerResource
+  
+  Loads and sets up a complete player mesh based on a directory name in which the player resources are contained.
+  Takes the directory name and skin name as parameters. Firstly, seeks out animation.cfg and gets all the animation
+  info for the player. Then, seeks out the proper skin files and gets the names of the skins for each body-part.
+  Loads each mesh part (lower, upper, head.md3). Remembers the animation information in convenient form. Ignore
+  the skins for now.
+  
+  CPlayerEntity
+  
+  takes a cplayerresource as a parameter, creates a cmeshentity for each body part, and links them. sets each
+  mesh entity as not renderable or collidable. sets up a reasonably large bounding sphere that can contain all
+  the body parts. sets the standard sized collision ellipse for a player. bunch of other stuff.
+  this entity's render function renders all the parts in the appropriate hierarchy, including the weapon,
+  if any present. this entity will have a camera and weaponentity references, and when rendering checks
+  if the current camera is this player's camera and does stuff differently. eventually localplayer or whatever
+  will extend this entity class and be controllable.
+  
+  *****************************************************************************
+  
+  CWeaponResource
+  
+  takes a directory name as parameter, loads the appropriate md3 resources (name, name_flash, name_hand, and
+  name_barrel if its present). doesn't do much else.
+  
+  *****************************************************************************
+  
+  CWeaponEntity
+  
+  takes a weapon resource as parameter, creates a cmeshentity for each weapon part. links them appropriately.
+  holds a reference to a CPlayerEntity parent, which could possibly be NULL. has methods for accessing
+  the different entity parts of the weapon entity. when unlinked, renderable and collidable is true,
+  when linked, renderable and collidable is false. on render, check if we're linked, if so, lah we do and stuff
+  you know. eventually all the different kinds of weapons will extend this weapon entity class.

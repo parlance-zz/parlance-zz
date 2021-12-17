@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "projectx", "projectx.vcproj", "{FFE42D86-E69F-45C6-87AA-EECB2D0DDD4E}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{FFE42D86-E69F-45C6-87AA-EECB2D0DDD4E}.Debug.ActiveCfg = Debug|Xbox
+		{FFE42D86-E69F-45C6-87AA-EECB2D0DDD4E}.Debug.Build.0 = Debug|Xbox
+		{FFE42D86-E69F-45C6-87AA-EECB2D0DDD4E}.Release.ActiveCfg = Release|Xbox
+		{FFE42D86-E69F-45C6-87AA-EECB2D0DDD4E}.Release.Build.0 = Release|Xbox
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
