@@ -20,7 +20,7 @@ Post 2004:
 * Content pre-processing / resource compilation tool for simple 2D game engine (Python)
 * Experimental software GPU renderer for point clouds with post-processing (C++, CUDA, Nvidia CG)
 * Proof-of-concept keylogger with remote control and optional code injection (C++, x86 ASM, PHP and SQL server backend)
-* x64 protected mode boot loader and micro-kernel with basic IO and memory management (x64 ASM, C)
+* x64 protected mode boot loader with basic IO and memory management (x64 ASM, C)
 * Random tilemap generator for Unity from example maps with enforced constraints - variation on wave-function-collapse, basically a CSP solver with bitfields and fast intrinsics. (C++ and C#)
 * DSP pre-processing tool for machine learning to convert raw audio to and from quantized power-spectral-density log-spectrograms (C++, AVX2)
 * Generative neural network for audio using power-spectral-density log-spectrograms (Python, Keras)
@@ -49,7 +49,7 @@ Languages:
 * Lua
 
 Other Relevant Skills:
-* Math skills - Linear algebra, calculus, some complex analysis
+* Math skills - Linear algebra, basic calculus, some complex analysis
 * Deep knowledge and experience with networking and common network protocols
 * Deep knowledge and experience with Windows client and server; OS internals and system administration
 * Project management and organization
