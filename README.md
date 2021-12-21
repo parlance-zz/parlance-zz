@@ -59,5 +59,4 @@ Caveats:
 * I do not have a computer science degree; dropped out in 2nd year for non-academic reasons
 * I do not have any other certifications related specifically to programming or coding, most of what I know is self-taught from an early age
 * Compared to other areas, my web dev experience (especially front end) is somewhat limited
-* Projects listed above were developed alone and my experience working on a team is somewhat limited
 * At least for the time being I am not able to relocate, I can only accept remote positions
