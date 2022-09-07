@@ -2,6 +2,14 @@ Hello,
 
 I've been interested in programming from a young age, but pursued a successful career in IT after dropping out of college. I would like to transition into a more challenging and intellectually fulfilling career in software engineering.
 
+While I've spent plenty of time on machine learning projects in the past, I believe Stable Diffusion and its extended applications have the potential to disrupt many industries. For the foreseeable I am devoting my time to working on related projects (G-Diffuser-Bot et al).
+
+Any donations are welcomed and appreciated, please ETH to 0x8e4BbD53bfF9C0765eE1859C590A5334722F2086 or paypal to parlance@fifth-harmonic.com.
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
 Below is a short summary of some of projects I have worked on over the years. These are solo projects and almost all of them were undertaken purely for my personal interest. I will be uploading some of these projects as a demonstration of my abilities to potential employers.
 
 Pre-2004:
