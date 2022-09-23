@@ -4,9 +4,9 @@ I've been interested in programming from a young age, but pursued a successful c
 
 While I've spent plenty of time on machine learning projects in the past, I believe Stable Diffusion and its extended applications have the potential to disrupt many industries. For the foreseeable future I am devoting my time to working on related projects (G-Diffuser-Bot et al).
 
-Any donations are welcomed and appreciated, please ETH to 0x8e4BbD53bfF9C0765eE1859C590A5334722F2086 or paypal to parlance@fifth-harmonic.com.
-
-
+Any donations are welcomed and appreciated:
+* https://buy.stripe.com/fZe8xU2lo0wU3SgfYY
+* ETH to 0x8e4BbD53bfF9C0765eE1859C590A5334722F2086
 
 -------------------------------------------------------------------------------------------------------------------------------
 
