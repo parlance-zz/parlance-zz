@@ -6,7 +6,7 @@ While I've spent plenty of time on machine learning projects in the past, I beli
 
 https://github.com/parlance-zz/g-diffuser-lib
 
-Any donations are welcomed and appreciated:
+Any donations are welcomed and greatly appreciated:
 * https://buy.stripe.com/fZe8xU2lo0wU3SgfYY
 * ETH to 0x8e4BbD53bfF9C0765eE1859C590A5334722F2086
 
