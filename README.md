@@ -10,7 +10,7 @@ Any donations are welcomed and appreciated:
 
 -------------------------------------------------------------------------------------------------------------------------------
 
-Below is a short summary of some of projects I have worked on over the years. These are solo projects and almost all of them were undertaken purely for my personal interest. I will be uploading some of these projects as a demonstration of my abilities to potential employers.
+Below is a short summary of some of projects I have worked on over the years. These are solo projects and almost all of them were undertaken purely for my personal interest. I will be uploading some of these projects as a demonstration of my abilities to potential employers, however, I did not have the confidence that any of these projects were worth preserving at the time. There may be other versions or unfinished breaking changes in what is published to my personal repository. If there is interest I will look into my old files to try to find other versions to publish.
 
 Pre-2004:
 * Simple real-time fluid simulation and software renderer (BlitzPlus)
