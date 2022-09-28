@@ -2,7 +2,7 @@ Hello,
 
 I've been interested in programming from a young age, but pursued a successful career in IT after dropping out of college. I would like to transition into a more challenging and intellectually fulfilling career in software engineering.
 
-While I've spent a great deal of time on machine learning projects in the past, I believe Stable Diffusion, the diffusers library, and together their extended applications have the potential to disrupt many industries. For the foreseeable future I am devoting my time to working on related projects (g-diffuser-lib et al).
+While I've spent a great deal of time on machine learning projects in the past, I believe Stable Diffusion, the diffusers library, and together their extended applications have the potential to disrupt many industries (to put it rather mildly). For the foreseeable future I am devoting my time to working on related projects (g-diffuser-lib et al).
 
 https://github.com/parlance-zz/g-diffuser-lib
 
