@@ -23,7 +23,7 @@ Pre-2004:
 
 Post 2004:
 * Bitmap -> Level conversion tool for Worms Armageddon (Win32 Game) (C++)
-* 3-player patch / ROM hack for Seiken Densetsu 3 (SNES Game) (65C816 ASM) 
+* 3-player patch / ROM hack for Seiken Densetsu 3 (SNES Game) (65C816 ASM) (https://www.romhacking.net/hacks/179/)
 * Small bug fix / feature patch to libopenmpt project for their interactive API (C++)
 * Compact contiguous heap allocators for LuaJIT (C++)
 * Simple lossy audio codec (basic MDCT quantization and entropy coding. Written in BlitzPlus)
