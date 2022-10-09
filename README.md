@@ -1,3 +1,5 @@
+![https://www.stablecabal.org](https://raw.githubusercontent.com/parlance-zz/g-diffuser-bot/dev/part_of_stable_cabal.png) https://www.stablecabal.org
+
 Hello,
 
 I've been interested in programming from a young age, but pursued a successful career in IT after dropping out of college. I would like to transition into a more challenging and intellectually fulfilling career in software engineering.
