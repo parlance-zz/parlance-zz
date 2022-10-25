@@ -18,10 +18,10 @@ Below is a short summary of some of projects I have worked on over the years. Th
 
 Pre-2004:
 * Simple real-time fluid simulation and software renderer (BlitzPlus)
-* Partially functional NES emulator; CPU, PPU, debugger and basic memory mapper. Able to display Zelda title screen and run some homebrew demos without sound (BlitzPlus, 6502 ASM)
+* Partially functional NES emulator; CPU, PPU, debugger and basic memory mapper. Able to display Zelda title screen and run some homebrew demos without sound (BlitzPlus, 6502 ASM) (https://github.com/parlance-zz/parlance-zz/tree/main/pnes)
 * 8kb "demo" real-time music synth with DSP, offline MIDI conversion tools (C++, OpenGL)
 * Multiplayer Xbox homebrew game (C++ with Xbox SDK / DirectX)
-* Unfinished clone of Quake 3 game engine (before the source was public) on Xbox with BSP and MD3 rendering, native Xbox shader compiler from Q3 materials. (C++, XDK  / DirectX and shader assembly). At the end of development it was capable of loading and rendering any Q3 map with all Q3 shader features supported; rendering maps in 4x splitscreen with dozens of animated characters at 60 fps on original Xbox.
+* Unfinished clone of Quake 3 game engine (before the source was public) on Xbox with BSP and MD3 rendering, native Xbox shader compiler from Q3 materials. (C++, XDK  / DirectX and shader assembly). At the end of development it was capable of loading and rendering any Q3 map with all Q3 shader features supported; rendering maps in 4x splitscreen with dozens of animated characters at 60 fps on original Xbox. (https://github.com/parlance-zz/parlance-zz/tree/main/projectx)
 
 Post 2004:
 * Bitmap -> Level conversion tool for Worms Armageddon (Win32 Game) (C++)
@@ -30,12 +30,12 @@ Post 2004:
 * Compact contiguous heap allocators for LuaJIT (C++)
 * Simple lossy audio codec (basic MDCT quantization and entropy coding. Written in BlitzPlus)
 * Content pre-processing / resource compilation tool for simple 2D game engine (Python)
-* Experimental software GPU renderer for point clouds with post-processing (C++, CUDA, Nvidia CG)
-* Proof-of-concept keylogger with remote control and optional code injection (C++, x86 ASM, PHP and SQL server backend)
-* x64 protected mode boot loader with basic IO and memory management (x64 ASM, C)
-* Random tilemap generator for Unity from example maps with enforced constraints - variation on wave-function-collapse, basically a CSP solver with bitfields and fast intrinsics. (C++ and C#)
-* DSP pre-processing tool for machine learning to convert raw audio to and from quantized power-spectral-density log-spectrograms (C++, AVX2, https://github.com/parlance-zz/Pulse)
-* Generative neural network for audio using power-spectral-density log-spectrograms (Python, Keras)
+* Experimental software GPU renderer for point clouds with post-processing (C++, CUDA, Nvidia CG) (https://github.com/parlance-zz/parlance-zz/tree/main/vtrace)
+* Proof-of-concept keylogger with remote control and optional code injection (C++, x86 ASM, PHP and SQL server backend) (https://github.com/parlance-zz/parlance-zz/tree/main/keylogger)
+* x64 protected mode boot loader with basic IO and memory management (x64 ASM, C) (https://github.com/parlance-zz/parlance-zz/tree/main/snsos)
+* Random tilemap generator for Unity from example maps with enforced constraints - variation on wave-function-collapse, basically a CSP solver with bitfields and fast intrinsics. (C++ and C#) (https://github.com/parlance-zz/parlance-zz/tree/main/rmx)
+* DSP pre-processing tool for machine learning to convert raw audio to and from quantized power-spectral-density log-spectrograms (C++, AVX2) (https://github.com/parlance-zz/Pulse)
+* Generative neural network for audio using power-spectral-density log-spectrograms (Python, Keras) (https://github.com/parlance-zz/parlance-zz/tree/main/keras)
 
 While working for my current employer:
 * Conversion tool for Windows Server 2003 scheduled tasks exported binary format to Server 2008 XML format (C++)
