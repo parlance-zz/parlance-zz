@@ -34,7 +34,7 @@ Post 2004:
 * Proof-of-concept keylogger with remote control and optional code injection (C++, x86 ASM, PHP and SQL server backend)
 * x64 protected mode boot loader with basic IO and memory management (x64 ASM, C)
 * Random tilemap generator for Unity from example maps with enforced constraints - variation on wave-function-collapse, basically a CSP solver with bitfields and fast intrinsics. (C++ and C#)
-* DSP pre-processing tool for machine learning to convert raw audio to and from quantized power-spectral-density log-spectrograms (C++, AVX2)
+* DSP pre-processing tool for machine learning to convert raw audio to and from quantized power-spectral-density log-spectrograms (C++, AVX2, https://github.com/parlance-zz/Pulse)
 * Generative neural network for audio using power-spectral-density log-spectrograms (Python, Keras)
 
 While working for my current employer:
