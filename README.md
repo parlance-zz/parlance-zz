@@ -1,5 +1,3 @@
-<a href="https://www.stablecabal.org"><img src="https://raw.githubusercontent.com/parlance-zz/g-diffuser-bot/dev/part_of_stable_cabal.png" width="220" height="76"></a>
-
 Hello,
 
 I've been interested in programming from a young age but pursued a successful career in IT after dropping out of college. I would like to transition into a more challenging and intellectually fulfilling career in software engineering. 
@@ -74,3 +72,5 @@ Caveats:
 * I do not have any other certifications related specifically to programming or coding, most of what I know is self-taught from an early age
 * Compared to other areas, my web dev experience (especially front end) is somewhat limited
 * At least for the time being I am not able to relocate, I can only accept remote positions
+
+<a href="https://www.stablecabal.org"><img src="https://raw.githubusercontent.com/parlance-zz/g-diffuser-bot/dev/part_of_stable_cabal.png"></a>https://www.stablecabal.org
