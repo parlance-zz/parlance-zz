@@ -14,7 +14,7 @@ Any donations are welcomed and greatly appreciated:
 
 -------------------------------------------------------------------------------------------------------------------------------
 
-Below is a short summary of some of projects I have worked on over the years. These are solo projects and almost all of them were undertaken purely for my personal interest. I will be uploading some of these projects as a demonstration of my abilities to potential employers, however, I did not have the confidence that any of these projects were worth preserving at the time. There may be other versions or unfinished breaking changes in what is published to my personal repository. If there is interest I will look into my old files to try to find other versions to publish.
+Listed below is a collection of solo projects undertaken purely for my personal interest. I will be uploading some of these projects as a demonstration of my abilities to potential employers, however, I did not have the confidence that any of these projects were worth preserving at the time. There may be other versions or unfinished breaking changes in what is published to my personal repository. If there is interest I will look into my old files to try to find other versions to publish.
 
 Pre-2004:
 * Simple real-time fluid simulation and software renderer (BlitzPlus)
@@ -36,6 +36,7 @@ Post 2004:
 * Random tilemap generator for Unity from example maps with enforced constraints - variation on wave-function-collapse, basically a CSP solver with bitfields and fast intrinsics. (C++ and C#) (https://github.com/parlance-zz/parlance-zz/tree/main/rmx)
 * DSP pre-processing tool for machine learning to convert raw audio to and from quantized power-spectral-density log-spectrograms (C++, AVX2) (https://github.com/parlance-zz/Pulse)
 * Generative neural network for audio using power-spectral-density log-spectrograms (Python, Keras) (https://github.com/parlance-zz/parlance-zz/tree/main/keras)
+* Discord bot, interface and utilities for the diffusers library (stable-diffusion) - This project is where Fourier shaped noise out-painting was first developed and explored (https://github.com/parlance-zz/g-diffuser-bot)
 
 While working for my current employer:
 * Conversion tool for Windows Server 2003 scheduled tasks exported binary format to Server 2008 XML format (C++)
