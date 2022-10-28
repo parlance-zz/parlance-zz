@@ -1,6 +1,4 @@
-![https://www.stablecabal.org](https://raw.githubusercontent.com/parlance-zz/g-diffuser-bot/dev/part_of_stable_cabal.png | width=200) https://www.stablecabal.org
-
-<img src="https://raw.githubusercontent.com/parlance-zz/g-diffuser-bot/dev/part_of_stable_cabal.png" width="220" height="76">
+<a href="https://www.stablecabal.org"><img src="https://raw.githubusercontent.com/parlance-zz/g-diffuser-bot/dev/part_of_stable_cabal.png" width="220" height="76"></a>
 
 Hello,
 
