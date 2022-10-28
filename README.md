@@ -20,7 +20,7 @@ Pre-2004:
 * Simple real-time fluid simulation and software renderer (BlitzPlus)
 * Partially functional NES emulator; CPU, PPU, debugger and basic memory mapper. Able to display Zelda title screen and run some homebrew demos without sound (BlitzPlus, 6502 ASM) (https://github.com/parlance-zz/parlance-zz/tree/main/pnes)
 * 8kb "demo" real-time music synth with DSP, offline MIDI conversion tools (C++, OpenGL)
-* Multiplayer Xbox homebrew game (C++ with Xbox SDK / DirectX)
+* Multiplayer Xbox homebrew game (C++ with Xbox SDK / DirectX) (not my video, a user managed to get it running on the Xbox 360 through emulation https://www.youtube.com/watch?v=YwC_8DD_GJg)
 * Unfinished clone of Quake 3 game engine (before the source was public) on Xbox with BSP and MD3 rendering, native Xbox shader compiler from Q3 materials. (C++, XDK  / DirectX and shader assembly). At the end of development it was capable of loading and rendering any Q3 map with all Q3 shader features supported; rendering maps in 4x splitscreen with dozens of animated characters at 60 fps on original Xbox. (https://github.com/parlance-zz/parlance-zz/tree/main/projectx)
 
 Post 2004:
