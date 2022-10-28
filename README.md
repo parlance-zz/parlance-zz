@@ -1,4 +1,4 @@
-![https://www.stablecabal.org](https://raw.githubusercontent.com/parlance-zz/g-diffuser-bot/dev/part_of_stable_cabal.png =440x155) https://www.stablecabal.org
+![https://www.stablecabal.org](https://raw.githubusercontent.com/parlance-zz/g-diffuser-bot/dev/part_of_stable_cabal.png | width=200) https://www.stablecabal.org
 
 Hello,
 
