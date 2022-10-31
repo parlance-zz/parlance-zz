@@ -1,6 +1,6 @@
 Hello,
 
-I've been interested in programming from a young age but pursued a successful career in IT after dropping out of college. I would like to transition into a more challenging and intellectually fulfilling career in software engineering. 
+I've been interested in programming from a young age but pursued a successful career in IT. I would like to transition into a more challenging and intellectually fulfilling career in software engineering. 
  
 While I've spent a great deal of time on machine learning projects in the past, I believe that Stable Diffusion and diffusion-type generative algorithms have the potential to change the world (to put it rather mildly). 
 
