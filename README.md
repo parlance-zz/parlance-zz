@@ -4,14 +4,6 @@ I've been interested in programming from a young age but pursued a successful ca
  
 While I've spent a great deal of time on machine learning projects in the past, I believe that Stable Diffusion and diffusion-type generative algorithms have the potential to change the world (to put it rather mildly). 
 
-For the foreseeable future I am devoting my time to working on related projects (g-diffuser-lib, Fourier shaped noise out-painting, scale-invariant latent spaces for generative audio, etc.) 
-
-https://github.com/parlance-zz/g-diffuser-lib
-
-Any donations are welcomed and greatly appreciated:
-* https://github.com/sponsors/parlance-zz
-* ETH to 0x8e4BbD53bfF9C0765eE1859C590A5334722F2086
-
 -------------------------------------------------------------------------------------------------------------------------------
 
 Listed below is a collection of solo projects undertaken purely for my personal interest. I will be uploading some of these projects as a demonstration of my abilities to potential employers, however, I did not have the confidence that any of these projects were worth preserving at the time. There may be other versions or unfinished breaking changes in what is published to my personal repository. If there is interest I will look into my old files to try to find other versions to publish.
