@@ -66,4 +66,4 @@ Caveats:
 * Compared to other areas, my web dev experience (especially front end) is somewhat limited
 * At least for the time being I am not able to relocate, I can only accept remote positions
 
-<a href="https://www.stablecabal.org"><img src="https://raw.githubusercontent.com/parlance-zz/g-diffuser-bot/dev/part_of_stable_cabal.png"></a>https://www.stablecabal.org
+<a href="https://www.stablecabal.org"><img src="https://www.g-diffuser.com/stablecabal.png">https://www.stablecabal.org</a>
