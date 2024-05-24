@@ -1,4 +1,10 @@
-Listed below is a collection of solo projects undertaken purely for my personal interest. I will be uploading some of these projects as a demonstration of my abilities to potential employers, however, I did not have the confidence that any of these projects were worth preserving at the time. There may be other versions or unfinished breaking changes in what is published to my personal repository. If there is interest I will look into my old files to try to find other versions to publish.
+Recent projects:
+
+2022-2024:
+* Dual Diffusion - A generative diffusion model for music. This is my current [project](https://github.com/parlance-zz/dualdiffusion) and is in active development.
+* G-Diffuser - A stable diffusion interface focusing on automated workflows, included a discord bot as well. The [project](https://github.com/parlance-zz/g-diffuser-bot) is now significantly out-dated. Notably this was the first stable diffusion interface capable of creating [smooth infinite zoom videos](https://www.youtube.com/@parlancex/videos).
+
+Listed below is a collection of old projects undertaken purely for my personal interest. I did not have the confidence that any of these projects were worth preserving at the time. There may be other versions or unfinished breaking changes in their current state.
 
 Pre-2004:
 * Simple real-time fluid simulation and software renderer (BlitzPlus)
@@ -29,7 +35,4 @@ While working for a past employer:
 * Dynamically generated web phonebook, integrating Active Directory and Cisco Unified Communications (PHP, SQL, SOAP, Cisco AXL)
 * Key Module programming web app for Cisco Unified Communication environments (PHP, SOAP, AXL)
 * Powershell API and tools for Xerox Docushare (Powershell, SOAP)
-* 
-2022-2024:
-* G-Diffuser - A stable diffusion interface focusing on automated workflows, included a discord bot as well. The [project](https://github.com/parlance-zz/g-diffuser-bot) is now significantly out-dated.
-* Dual Diffusion - A generative diffusion model for music. This is my current [project](https://github.com/parlance-zz/dualdiffusion) and is in active development.
+
