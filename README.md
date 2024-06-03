@@ -1,3 +1,6 @@
+> It's funny. Twenty years ago Slashdot was outraged that the US government was restricting export of modular exponentiation. Now they're asking about the best way to protest matrix multiplication and the chain rule.<br/><br/>
+> &nbsp;&nbsp;&nbsp;-An insightful Slashdot commenter
+
 Recent projects:
 
 2022-2024:
