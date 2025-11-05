@@ -3,5 +3,5 @@
 
 Recent projects:
 
-* Dual Diffusion - A generative diffusion model for music. This is my current [project](https://github.com/parlance-zz/dualdiffusion) and is in active development.
+* Dual Diffusion - A generative diffusion model for video game music. This is my current [project](https://github.com/parlance-zz/dualdiffusion) and is in active development.
 * G-Diffuser - A stable diffusion interface focusing on automated workflows, included a discord bot as well. The [project](https://github.com/parlance-zz/g-diffuser-bot) is now significantly out-dated. Notably this was the first stable diffusion interface capable of creating [smooth infinite zoom videos](https://www.youtube.com/@parlancex/videos).
